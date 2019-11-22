@@ -1,0 +1,34 @@
+name:                equation-parser-solver
+version:             0.1.0.0
+github:              "WASDi/equation-parser-solver"
+license:             BSD3
+author:              "WASDi"
+
+dependencies:
+- base >= 4.7 && < 5
+
+library:
+  source-dirs: src
+
+executables:
+  equation-parser-solver-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - equation-parser-solver
+
+tests:
+  equation-parser-solver-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - equation-parser-solver
+    - HUnit

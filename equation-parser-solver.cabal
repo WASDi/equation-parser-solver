@@ -1,0 +1,61 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: a7cf5eafc3b04451a8f255837c7d7e51d25ea8da6f7565cebd01b5585ecb81f5
+
+name:           equation-parser-solver
+version:        0.1.0.0
+homepage:       https://github.com/WASDi/equation-parser-solver#readme
+bug-reports:    https://github.com/WASDi/equation-parser-solver/issues
+author:         WASDi
+maintainer:     WASDi
+license:        BSD3
+build-type:     Simple
+
+source-repository head
+  type: git
+  location: https://github.com/WASDi/equation-parser-solver
+
+library
+  exposed-modules:
+      Equationizer
+      Lexer
+      Simplifier
+      Solver
+      TreeParser
+  other-modules:
+      Paths_equation_parser_solver
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+  default-language: Haskell2010
+
+executable equation-parser-solver-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_equation_parser_solver
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , equation-parser-solver
+  default-language: Haskell2010
+
+test-suite equation-parser-solver-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_equation_parser_solver
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      HUnit
+    , base >=4.7 && <5
+    , equation-parser-solver
+  default-language: Haskell2010

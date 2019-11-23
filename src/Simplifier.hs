@@ -31,7 +31,10 @@ simplify (Minus t1 t2) =
       | n < 0 -> Plus t (Number (abs n))
     (Minus (Number 0) t) -> Negate t
     (Minus t (Negate n)) -> Plus t n
+    (Minus (Variable v1) (Variable v2))
+      | v1 == v2 -> Number 0
     t -> t
+simplify (Negate (Number n)) = Number (negate n)
 simplify (Negate (Negate t)) = simplify t
 simplify leaf = leaf
 
@@ -42,8 +45,8 @@ simplify' cons op' t1 t2 =
         (Number n1, Number n2)           -> n1 `op` n2
         (Plus t (Number n1), Number n2)  -> t `Plus` (n1 `op` n2)
         (Plus (Number n1) t, Number n2)  -> t `Plus` (n1 `op` n2)
-        (Minus t (Number n1), Number n2) -> t `Minus` (n1 `op` n2)
-        (Minus (Number n1) t, Number n2) -> t `Minus` (n1 `op` n2)
+        (Minus t (Number n1), Number n2) -> t `Minus` (n1 `op` negate n2)
+        (Minus (Number n1) t, Number n2) -> (n1 `op` n2) `Minus` t
         (Number n1, Plus (Number n2) t)  -> (n1 `op` n2) `cons` t
         (Number n1, Plus t (Number n2))  -> (n1 `op` n2) `cons` t
         (Number n1, Minus (Number n2) t) -> (n1 `op` n2) `cons` Negate t

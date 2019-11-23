@@ -43,13 +43,13 @@ simplify' cons op' t1 t2 =
   let op n1 n2 = Number (n1 `op'` n2)
    in case (simplify t1, simplify t2) of
         (Number n1, Number n2)           -> n1 `op` n2
-        (Plus t (Number n1), Number n2)  -> t `Plus` (n1 `op` n2)
-        (Plus (Number n1) t, Number n2)  -> t `Plus` (n1 `op` n2)
-        (Minus t (Number n1), Number n2) -> t `Minus` (n1 `op` negate n2)
+        (Plus (Number n1) t, Number n2)  -> (n1 `op` n2) `Plus` t
         (Minus (Number n1) t, Number n2) -> (n1 `op` n2) `Minus` t
+        (Plus t (Number n1), Number n2)  -> t `Plus` (n1 `op` n2)
+        (Minus t (Number n1), Number n2) -> t `Minus` (n1 `op` negate n2)
         (Number n1, Plus (Number n2) t)  -> (n1 `op` n2) `cons` t
-        (Number n1, Plus t (Number n2))  -> (n1 `op` n2) `cons` t
         (Number n1, Minus (Number n2) t) -> (n1 `op` n2) `cons` Negate t
+        (Number n1, Plus t (Number n2))  -> (n1 `op` n2) `cons` t
         (Number n1, Minus t (Number n2)) -> (n1 `op` negate n2) `cons` t
         (t1', t2')                       -> cons t1' t2'
 
